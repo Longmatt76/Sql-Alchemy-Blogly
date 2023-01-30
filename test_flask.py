@@ -4,7 +4,7 @@ from app import app
 from models import db, User
 
 # Use test database and don't clutter tests with SQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///sqla_intro_test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///users_test'
 app.config['SQLALCHEMY_ECHO'] = False
 
 # Make Flask errors be real errors, rather than HTML pages with error info
@@ -38,7 +38,7 @@ class UserViewsTestCase(TestCase):
 
     def test_list_users(self):
         with app.test_client() as client:
-            resp = client.get("/")
+            resp = client.get("/users")
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
@@ -46,7 +46,7 @@ class UserViewsTestCase(TestCase):
 
     def test_show_user(self):
         with app.test_client() as client:
-            resp = client.get(f"/{self.user_id}")
+            resp = client.get(f"/users/{self.user_id}")
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
@@ -55,7 +55,7 @@ class UserViewsTestCase(TestCase):
     def test_add_user(self):
         with app.test_client() as client:
             d = {"first_name": "Test", "last_name": "User", "image_url": 'https://www.seekpng.com/png/detail/245-2454602_tanni-chand-default-user-image-png.png'}
-            resp = client.post("/users", data=d, follow_redirects=True)
+            resp = client.post("/users/new", data=d, follow_redirects=True)
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
