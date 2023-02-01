@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User
+from models import db, connect_db, User, Post
 
 # Use test database and don't clutter tests with SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///users_test'
@@ -12,6 +12,8 @@ app.config['TESTING'] = True
 
 # This is a bit of hack, but don't use Flask DebugToolbar
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
+
+
 
 db.drop_all()
 db.create_all()

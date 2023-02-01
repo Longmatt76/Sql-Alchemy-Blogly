@@ -18,4 +18,12 @@
       </div>
     </div>
   </div>
-{% endblock %}
+  <h3 class="display-5 ml-5">Posts</h3>
+  <ul>
+    {% for post in user.posts %}
+    <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+    {% endfor %}
+  </ul>
+  <button class="btn btn-primary ml-5" onclick="location.href='/users/{{user_id}}/posts/new'">Add Post</button>
+
+  {% endblock %}
