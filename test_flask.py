@@ -14,9 +14,9 @@ app.config['TESTING'] = True
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 
 
-
-db.drop_all()
-db.create_all()
+with app.app_context():
+    db.drop_all()
+    db.create_all()
 
 
 class UserViewsTestCase(TestCase):
@@ -25,18 +25,19 @@ class UserViewsTestCase(TestCase):
     def setUp(self):
         """Add sample user."""
 
-        User.query.delete()
+        with app.app_context():
+            User.query.delete()
 
-        user = User( first_name='Test', last_name='User', image_url='https://www.seekpng.com/png/detail/245-2454602_tanni-chand-default-user-image-png.png')
-        db.session.add(user)
-        db.session.commit()
+            user = User( first_name='Test', last_name='User', image_url='https://www.seekpng.com/png/detail/245-2454602_tanni-chand-default-user-image-png.png')
+            db.session.add(user)
+            db.session.commit()
 
-        self.user_id = user.id
+            self.user_id = user.id
 
     def tearDown(self):
         """Clean up any fouled transaction."""
-
-        db.session.rollback()
+        with app.app_context():
+            db.session.rollback()
 
     def test_list_users(self):
         with app.test_client() as client:
