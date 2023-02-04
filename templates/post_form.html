@@ -10,7 +10,12 @@
     </div>
     <div class="form-group">
       <label for="content">Content</label>
-      <textarea type="text" class="form-control" id="content" name="content"></textarea>
+      <textarea type="text" class="form-control mb-3" id="content" name="content"></textarea>
+      <h5>Select Tags:</h5>
+      {% for tag in tags %}
+      <input class="form-check-input" type="checkbox" name="tags" value="{{tag.id}}" id="{{tag.id}}"> {{tag.name}} <br>
+      <label class="form-check-label" for="tag_{{tag.id}}"></label>
+      {% endfor %}
     </div>
     <button type="button"  onclick="location.href='/users'" class="btn btn-danger">Cancel</button> <button type="submit" class="btn btn-primary">Add</button>
   </form>

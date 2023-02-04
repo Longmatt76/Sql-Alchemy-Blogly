@@ -2,12 +2,12 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 <h2 class="display-5 m-3">Users</h2>
-<ul>
+<ul class="list-group">
 {% for user in users %}
-<li><a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
+<li class="list-group-item"><a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
 {% endfor %}
 </ul>
-<button  onclick="location.href='/users/new'" class="btn btn-primary btn-sm m-3" >Add User</button>
+<button  onclick="location.href='/users/new'" class="btn btn-primary btn-sm m-3" >Add User</button><button  onclick="location.href='/tags/new'" class="btn btn-success btn-sm m-3" >Add Tags</button>
 {% endblock %}
 
 
